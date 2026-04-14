@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 추경 민생 혜택 총정리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   DESIGN SYSTEM — Light & Clean
+   배경: 흰색/밝은 그레이 베이스
+   포인트: 슬라이드별 선명한 단색 + 흰 카드
+══════════════════════════════════════ */
+:root {
+  --c-blue:    #2563EB;   /* K패스 */
+  --c-blue2:   #1D4ED8;
+  --c-blue-lt: #EFF6FF;
+  --c-amber:   #D97706;   /* 지원금 */
+  --c-amber2:  #B45309;
+  --c-amber-lt:#FFFBEB;
+  --c-violet:  #7C3AED;   /* 영화·공연 */
+  --c-violet2: #6D28D9;
+  --c-violet-lt:#F5F3FF;
+  --c-teal:    #0D9488;   /* 숙박 */
+  --c-teal2:   #0F766E;
+  --c-teal-lt: #F0FDFA;
+  --c-navy:    #1E3A5F;   /* 커버·아웃트로 */
+  --c-navy2:   #162D4A;
+  --c-gold:    #F59E0B;
+  --c-white:   #FFFFFF;
+  --c-gray50:  #F8FAFC;
+  --c-gray100: #F1F5F9;
+  --c-gray200: #E2E8F0;
+  --c-gray400: #94A3B8;
+  --c-gray600: #475569;
+  --c-gray800: #1E293B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #E8EDF5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 28px 0 36px;
+}
+
+/* ── 9:16 frame ── */
+.phone-frame {
+  width: 360px;
+  height: 640px;
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 4px 12px rgba(0,0,0,.1);
+  flex-shrink: 0;
+}
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform .45s cubic-bezier(.77,0,.175,1);
+}
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── 9:16 = 640px  |  4:5 = 450px centred
+   top: 95px  content: 450px  bot: 95px     ── */
+.top-bar {
+  width: 100%;
+  height: 95px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+}
+.bot-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.content-box {
+  width: 100%;
+  height: 450px;        /* exact 4:5 at 360px wide */
+  flex-shrink: 0;
+  overflow: hidden;     /* hard clip — nothing bleeds out */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── page number ── */
+.slide-num {
+  position: absolute;
+  bottom: 8px; right: 13px;
+  font-size: 9px;
+  letter-spacing: .05em;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════
+   SHARED COMPONENTS
+══════════════════════════════════════ */
+.s-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.s-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.s-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.s-title {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* white card */
+.wcard {
+  background: #fff;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+/* light pill tag */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+/* bottom note strip */
+.note-strip {
+  border-radius: 10px;
+  padding: 8px 11px;
+  font-size: 9px;
+  line-height: 1.6;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.note-strip .ni { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+/* table base */
+.tbl { border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+.tbl-h { display: grid; }
+.tbl-r { display: grid; border-top: 1px solid; }
+.tc { padding: 5px 7px; font-size: 8.5px; line-height: 1.35; text-align: center; }
+.tc-l { text-align: left; padding-left: 10px; }
+
+/* ══════════════════════════════════════
+   SLIDE 0 — COVER  (dark navy)
+══════════════════════════════════════ */
+.s0 .top-bar, .s0 .bot-bar { background: var(--c-navy); }
+.s0 .content-box {
+  background: linear-gradient(148deg, var(--c-navy) 0%, #2B4A7A 55%, #1a3660 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 26px 24px;
+  gap: 0;
+}
+.s0 .slide-num { color: rgba(255,255,255,.3); }
+
+/* cover decorative blobs */
+.cv-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.cv-badge {
+  background: var(--c-gold);
+  color: var(--c-navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+.cv-emojis { font-size: 36px; margin-bottom: 14px; line-height: 1; }
+.cv-rule   { width: 42px; height: 2.5px; background: var(--c-gold); border-radius: 2px; margin: 0 auto 16px; }
+.cv-title  {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+.cv-title em { color: var(--c-gold); font-style: normal; }
+.cv-sub { font-size: 11px; color: rgba(255,255,255,.55); line-height: 1.65; margin-bottom: 22px; }
+.cv-tags { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
+.cv-tag {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.85);
+  font-size: 10px;
+  padding: 4px 11px;
+  border-radius: 14px;
+}
+
+/* ══════════════════════════════════════
+   SLIDE 1 — K패스 개요  (blue light)
+══════════════════════════════════════ */
+.s1 .top-bar, .s1 .bot-bar { background: var(--c-blue); }
+.s1 .content-box {
+  background: var(--c-blue-lt);
+  padding: 16px 18px 14px;
+  gap: 0;
+}
+.s1 .s-eyebrow { color: var(--c-blue); }
+.s1 .s-title   { color: var(--c-gray800); }
+.s1 .slide-num { color: var(--c-gray400); }
+
+/* K패스 설명 박스 */
+.kp-desc-box {
+  background: #fff;
+  border: 1.5px solid var(--c-blue);
+  border-radius: 11px;
+  padding: 10px 13px;
+  font-size: 9.5px;
+  line-height: 1.65;
+  color: var(--c-gray600);
+  flex-shrink: 0;
+}
+/* 혜택 카드 */
+.kp-benefit {
+  background: #fff;
+  border-radius: 11px;
+  padding: 10px 12px;
+  flex-shrink: 0;
+  border-left: 4px solid;
+}
+.kp-b-tag {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: #fff;
+  margin-right: 6px;
+}
+.kp-b-label { font-size: 10px; font-weight: 700; }
+.kp-b-body  { font-size: 9px; line-height: 1.6; color: var(--c-gray600); margin-top: 5px; }
+/* 조건 박스 */
+.kp-cond {
+  background: var(--c-gray100);
+  border-radius: 9px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.kp-cond-item { font-size: 9px; color: var(--c-gray600); display: flex; align-items: center; gap: 4px; }
+
+/* ══════════════════════════════════════
+   SLIDE 2 — K패스 상세  (blue light)
+   ★ gap:0 + 정밀 margin 방식으로 잘림 방지
+══════════════════════════════════════ */
+.s2 .top-bar, .s2 .bot-bar { background: var(--c-blue2); }
+.s2 .content-box {
+  background: var(--c-blue-lt);
+  padding: 14px 18px 12px;
+  gap: 0;                 /* ← gap 금지, 모든 간격은 margin-bottom으로 */
+}
+.s2 .s-eyebrow { color: var(--c-blue2); }
+.s2 .s-title   { color: var(--c-gray800); }
+.s2 .slide-num { color: var(--c-gray400); }
+
+/* 환급률 표 — 슬라이드 2 전용 */
+.rate-tbl { border-radius: 10px; overflow: hidden; flex-shrink: 0; background: #fff; border: 1px solid var(--c-gray200); }
+.rate-tbl .tbl-h { grid-template-columns: 1.4fr .7fr .9fr; background: var(--c-blue); }
+.rate-tbl .tbl-r { grid-template-columns: 1.4fr .7fr .9fr; background: #fff; border-color: var(--c-gray100); }
+.rate-tbl .tbl-r:nth-child(odd) { background: var(--c-gray50); }
+.rate-tbl .tc { color: var(--c-gray700, #374151); }
+.rate-tbl .tbl-h .tc { color: #fff; font-size: 7.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 5px 7px; }
+.rate-tbl .tc-new { color: var(--c-blue); font-weight: 700; font-size: 9px; }
+.rate-tbl .tc-old { color: var(--c-gray400); font-size: 8.5px; }
+
+/* 기준금액 카드 행 */
+.base-cards { display: flex; gap: 7px; flex-shrink: 0; }
+.base-card {
+  flex: 1;
+  background: #fff;
+  border: 1.5px solid var(--c-blue);
+  border-radius: 11px;
+  padding: 9px 10px;
+  text-align: center;
+}
+.base-card-region { font-size: 9px; font-weight: 700; color: var(--c-blue2); margin-bottom: 3px; }
+.base-card-amount { font-family: 'Nanum Myeongjo', serif; font-size: 17px; font-weight: 800; color: var(--c-blue); line-height: 1; margin-bottom: 4px; }
+.base-card-sub { font-size: 7.5px; color: var(--c-gray600); line-height: 1.5; }
+
+/* ══════════════════════════════════════
+   SLIDE 3 — 고유가 피해지원금  (amber)
+══════════════════════════════════════ */
+.s3 .top-bar, .s3 .bot-bar { background: var(--c-amber); }
+.s3 .content-box {
+  background: var(--c-amber-lt);
+  padding: 14px 18px 12px;
+  gap: 0;
+}
+.s3 .s-eyebrow { color: var(--c-amber); }
+.s3 .s-title   { color: var(--c-gray800); }
+.s3 .slide-num { color: var(--c-gray400); }
+
+/* 지급금액 표 */
+.pay-tbl { border-radius: 10px; overflow: hidden; flex-shrink: 0; background: #fff; border: 1px solid var(--c-gray200); }
+.pay-tbl .tbl-h { grid-template-columns: 1.5fr 1fr 1.1fr; background: var(--c-amber); }
+.pay-tbl .tbl-r { grid-template-columns: 1.5fr 1fr 1.1fr; background: #fff; border-color: var(--c-gray100); }
+.pay-tbl .tbl-r:nth-child(odd) { background: var(--c-amber-lt); }
+.pay-tbl .tbl-h .tc { color: #fff; font-size: 7.5px; font-weight: 700; text-transform: uppercase; padding: 5px 6px; }
+.pay-tbl .tc-a { color: var(--c-amber); font-weight: 700; }
+.pay-tbl .tc-b { color: #B45309; font-weight: 700; }
+
+/* 신청 카드 4개 */
+.apply-row { display: flex; gap: 6px; flex-shrink: 0; }
+.apply-card {
+  flex: 1;
+  background: #fff;
+  border: 1px solid var(--c-gray200);
+  border-radius: 10px;
+  padding: 7px 6px;
+  text-align: center;
+}
+.apply-icon { font-size: 15px; margin-bottom: 3px; }
+.apply-lbl  { font-size: 7.5px; color: var(--c-gray400); margin-bottom: 2px; }
+.apply-val  { font-size: 8.5px; font-weight: 700; color: var(--c-amber2); line-height: 1.3; }
+
+/* ══════════════════════════════════════
+   SLIDE 4 — 영화·공연  (violet)
+══════════════════════════════════════ */
+.s4 .top-bar, .s4 .bot-bar { background: var(--c-violet); }
+.s4 .content-box {
+  background: var(--c-violet-lt);
+  padding: 16px 18px 14px;
+  gap: 0;
+}
+.s4 .s-eyebrow { color: var(--c-violet); }
+.s4 .s-title   { color: var(--c-gray800); }
+.s4 .slide-num { color: var(--c-gray400); }
+
+.cult-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+  border: 1px solid var(--c-gray200);
+}
+.cult-icon { font-size: 28px; flex-shrink: 0; }
+.cult-name { font-size: 10px; font-weight: 700; color: var(--c-gray600); margin-bottom: 2px; }
+.cult-amount { font-family: 'Nanum Myeongjo', serif; font-size: 22px; font-weight: 800; color: var(--c-violet); line-height: 1.1; }
+.cult-sub  { font-size: 8.5px; color: var(--c-gray400); margin-top: 2px; line-height: 1.4; }
+.cult-badge {
+  background: var(--c-violet-lt);
+  border: 1.5px solid var(--c-violet);
+  color: var(--c-violet2);
+  font-size: 8.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.cult-note {
+  background: #fff;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 9px;
+  line-height: 1.65;
+  color: var(--c-gray600);
+  flex-shrink: 0;
+  border: 1px solid var(--c-gray200);
+}
+.cult-note strong { color: var(--c-violet2); }
+
+/* ══════════════════════════════════════
+   SLIDE 5 — 숙박  (teal)
+══════════════════════════════════════ */
+.s5 .top-bar, .s5 .bot-bar { background: var(--c-teal); }
+.s5 .content-box {
+  background: var(--c-teal-lt);
+  padding: 16px 18px 14px;
+  gap: 0;
+}
+.s5 .s-eyebrow { color: var(--c-teal); }
+.s5 .s-title   { color: var(--c-gray800); }
+.s5 .slide-num { color: var(--c-gray400); }
+
+.lodge-hero { display: flex; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.lodge-big  { font-family: 'Nanum Myeongjo', serif; font-size: 68px; font-weight: 800; color: var(--c-teal); line-height: 1; }
+.lodge-big-info { padding-bottom: 8px; }
+.lodge-big-pct  { font-family: 'Nanum Myeongjo', serif; font-size: 18px; font-weight: 700; color: var(--c-teal2); }
+.lodge-big-sub  { font-size: 10px; color: var(--c-gray600); line-height: 1.45; margin-top: 3px; }
+
+.lodge-rows { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+.lodge-row  {
+  background: #fff;
+  border: 1px solid var(--c-gray200);
+  border-radius: 9px;
+  padding: 8px 11px;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+.lodge-row-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.lodge-row-text { font-size: 9px; color: var(--c-gray600); line-height: 1.55; }
+.lodge-row-text strong { color: var(--c-teal2); }
+
+/* ══════════════════════════════════════
+   SLIDE 6 — OUTRO  (dark navy)
+══════════════════════════════════════ */
+.s6 .top-bar, .s6 .bot-bar { background: var(--c-navy); }
+.s6 .content-box {
+  background: linear-gradient(155deg, var(--c-navy) 0%, #263F6A 60%, var(--c-navy2) 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 22px 16px;
+  gap: 0;
+}
+.s6 .slide-num { color: rgba(255,255,255,.3); }
+
+.outro-icon { font-size: 40px; margin-bottom: 10px; }
+.outro-title { font-family: 'Nanum Myeongjo', serif; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+.outro-title em { color: var(--c-gold); font-style: normal; }
+.outro-sub  { font-size: 10.5px; color: rgba(255,255,255,.55); margin-bottom: 16px; }
+.outro-list { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-bottom: 16px; }
+.outro-row  {
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  padding: 9px 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+.or-icon { font-size: 15px; flex-shrink: 0; }
+.or-text  { font-size: 9.5px; color: rgba(255,255,255,.85); line-height: 1.45; }
+.or-text strong { color: var(--c-gold); }
+.outro-foot { font-size: 8.5px; color: rgba(255,255,255,.3); line-height: 1.7; }
+
+/* ══════════════════════════════════════
+   TOP-BAR & BOT-BAR label text
+══════════════════════════════════════ */
+.bar-eyebrow { font-size: 9px; letter-spacing: .14em; color: rgba(255,255,255,.5); text-transform: uppercase; }
+.bar-title   { font-size: 12px; color: rgba(255,255,255,.9); font-weight: 700; }
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+.nav-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(30,58,95,.15);
+  color: var(--c-navy);
+  font-size: 17px;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-btn:hover { background: rgba(30,58,95,.25); transform: scale(1.08); }
+.nav-btn:disabled { opacity: .3; cursor: default; transform: none; }
+.dots { display: flex; gap: 5px; }
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 3px;
+  background: rgba(30,58,95,.2);
+  cursor: pointer;
+  transition: all .3s;
+}
+.dot.active { width: 20px; background: var(--c-navy); }
+.swipe-hint { margin-top: 9px; font-size: 10px; color: rgba(30,58,95,.4); letter-spacing: .06em; }
+</style>
+</head>
+<body>
+
+<div class="phone-frame" id="phoneFrame">
+<div class="slides" id="slides">
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 0 : COVER              -->
+<!-- ══════════════════════════════ -->
+<div class="slide s0">
+  <div class="top-bar"></div>
+  <div class="content-box">
+    <div class="cv-blob" style="width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,.18),transparent 70%);top:-50px;right:-50px;"></div>
+    <div class="cv-blob" style="width:140px;height:140px;background:radial-gradient(circle,rgba(96,165,250,.15),transparent 70%);bottom:-30px;left:-30px;"></div>
+    <div class="cv-badge">📢 2026년 제1회 추경 민생 패키지</div>
+    <div class="cv-emojis">🚇💰🎬🏨</div>
+    <div class="cv-rule"></div>
+    <div class="cv-title">지금 바로<br>받을 수 있는<br><em>4가지 혜택</em></div>
+    <div class="cv-sub" style="margin-top:10px;">중동전쟁 고유가 대응 26조 2천억 추경 통과<br>국민 생활비 부담을 낮추는 민생 지원책 총정리</div>
+    <div class="cv-tags">
+      <span class="cv-tag">🚇 K패스 교통비 환급</span>
+      <span class="cv-tag">💰 고유가 피해지원금</span>
+      <span class="cv-tag">🎬 영화·공연 할인</span>
+      <span class="cv-tag">🏨 숙박 반값</span>
+    </div>
+    <div class="slide-num">1 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 1 : K패스 개요         -->
+<!-- ══════════════════════════════ -->
+<div class="slide s1">
+  <div class="top-bar">
+    <span class="bar-eyebrow">K-PASS  ①  개요</span>
+    <span class="bar-title">대중교통비 돌려받는 교통카드</span>
+  </div>
+  <div class="content-box">
+
+    <div class="s-header" style="margin-bottom:10px;">
+      <div class="s-icon" style="background:var(--c-blue-lt);border:1.5px solid var(--c-blue);">🚇</div>
+      <div>
+        <div class="s-eyebrow">K패스란?</div>
+        <div class="s-title">월 15회 이상 타면<br>교통비를 돌려준다</div>
+      </div>
+    </div>
+
+    <div class="kp-desc-box" style="margin-bottom:10px;">
+      버스·지하철 탈 때 K패스 카드로 결제하면, 다음 달에 쓴 돈의 일부를 돌려주는 제도예요.<br>
+      <strong style="color:var(--c-blue);">이번 추경으로 두 가지 혜택이 동시에 적용됩니다 👇</strong>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;flex-shrink:0;">
+      <!-- 혜택 1 -->
+      <div class="kp-benefit" style="border-color:var(--c-blue);">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+          <span class="kp-b-tag" style="background:var(--c-blue);">혜택 ①  4~9월 한시</span>
+          <span class="kp-b-label" style="color:var(--c-blue);">환급률 인상</span>
+        </div>
+        <div class="kp-b-body">
+          원래 환급받던 비율이 <strong style="color:var(--c-gray800);">6개월간 더 높아집니다</strong><br>
+          예) 일반 시민 20% → <strong style="color:var(--c-blue);">30%</strong> &nbsp;/&nbsp; 저소득층 53% → <strong style="color:var(--c-blue);">83%</strong>
+        </div>
+      </div>
+
+      <!-- 혜택 2 -->
+      <div class="kp-benefit" style="border-color:var(--c-amber);">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+          <span class="kp-b-tag" style="background:var(--c-amber);">혜택 ②  2026년 신규</span>
+          <span class="kp-b-label" style="color:var(--c-amber);">모두의 카드</span>
+        </div>
+        <div class="kp-b-body">
+          한 달에 일정 금액 이상 쓰면, <strong style="color:var(--c-gray800);">초과분을 100% 전액</strong> 돌려줍니다<br>
+          예) 수도권에서 6만 2천원 초과 사용 → 초과분 전액 환급
+        </div>
+      </div>
+    </div>
+
+    <div class="kp-cond" style="margin-bottom:10px;">
+      <div class="s-eyebrow" style="color:var(--c-gray400);font-size:8px;width:100%;margin-bottom:0;display:flex;align-items:center;gap:14px;font-weight:400;letter-spacing:0;text-transform:none;">
+        <span>✅ 공통 조건</span>
+        <span>🗓️ <strong style="color:var(--c-gray800);">월 15회 이상</strong> 대중교통 이용</span>
+        <span>💳 <strong style="color:var(--c-gray800);">K패스 카드</strong>로 결제</span>
+      </div>
+    </div>
+
+    <div class="note-strip" style="background:var(--c-blue-lt);border:1px solid #BFDBFE;">
+      <span class="ni">💡</span>
+      <span style="font-size:9px;color:var(--c-blue2);line-height:1.6;">두 혜택 중 더 유리한 쪽이 <strong>자동</strong>으로 적용됩니다<br>기존 K패스 카드 그대로 사용 OK (재발급 불필요)</span>
+    </div>
+    <div class="slide-num">2 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 2 : K패스 상세  ★잘림수정★ -->
+<!-- ══════════════════════════════ -->
+<div class="slide s2">
+  <div class="top-bar">
+    <span class="bar-eyebrow">K-PASS  ②  상세</span>
+    <span class="bar-title">내 유형별 환급률 & 기준금액</span>
+  </div>
+  <div class="content-box">
+
+    <!-- 헤더  높이 약 40px -->
+    <div class="s-header" style="margin-bottom:8px;">
+      <div class="s-icon" style="background:var(--c-blue-lt);border:1.5px solid var(--c-blue2);">🃏</div>
+      <div>
+        <div class="s-eyebrow">4~9월 인상 환급률 · 모두의 카드 기준금액</div>
+        <div class="s-title">나는 얼마나<br>돌려받을 수 있을까?</div>
+      </div>
+    </div>
+
+    <!-- 라벨  높이 약 12px -->
+    <div style="font-size:7.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--c-blue);font-weight:700;opacity:.7;margin-bottom:4px;flex-shrink:0;">① 환급률 — 4~9월 한시 인상</div>
+
+    <!-- 환급률 표  행5개 × 약 25px = 125px + 헤더 26px = 151px -->
+    <div class="rate-tbl" style="margin-bottom:8px;">
+      <div class="tbl-h" style="grid-template-columns:1.4fr .7fr .9fr;">
+        <div class="tc tc-l" style="color:#fff;font-size:7.5px;font-weight:700;padding:5px 7px;text-transform:uppercase;letter-spacing:.04em;">내 유형</div>
+        <div class="tc" style="color:#fff;font-size:7.5px;font-weight:700;padding:5px 7px;text-transform:uppercase;letter-spacing:.04em;">기존</div>
+        <div class="tc" style="color:#fff;font-size:7.5px;font-weight:700;padding:5px 7px;text-transform:uppercase;letter-spacing:.04em;">4~9월</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.4fr .7fr .9fr;background:#fff;border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">저소득층</div>
+        <div class="tc tc-old" style="color:var(--c-gray400);font-size:8.5px;">53%</div>
+        <div class="tc tc-new" style="color:var(--c-blue);font-weight:700;font-size:9px;">83%</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.4fr .7fr .9fr;background:var(--c-gray50);border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">청년 (19~34세)</div>
+        <div class="tc" style="color:var(--c-gray400);font-size:8.5px;">30%</div>
+        <div class="tc" style="color:var(--c-blue);font-weight:700;font-size:9px;">50%</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.4fr .7fr .9fr;background:#fff;border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">3자녀 이상</div>
+        <div class="tc" style="color:var(--c-gray400);font-size:8.5px;">50%</div>
+        <div class="tc" style="color:var(--c-blue);font-weight:700;font-size:9px;">60%</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.4fr .7fr .9fr;background:var(--c-gray50);border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">어르신 (65세↑)</div>
+        <div class="tc" style="color:var(--c-gray400);font-size:8.5px;">20%</div>
+        <div class="tc" style="color:var(--c-blue);font-weight:700;font-size:9px;">30%</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.4fr .7fr .9fr;background:#fff;border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">일반 시민</div>
+        <div class="tc" style="color:var(--c-gray400);font-size:8.5px;">20%</div>
+        <div class="tc" style="color:var(--c-blue);font-weight:700;font-size:9px;">30%</div>
+      </div>
+    </div>
+
+    <!-- 라벨  높이 약 12px -->
+    <div style="font-size:7.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--c-blue);font-weight:700;opacity:.7;margin-bottom:4px;flex-shrink:0;">② 모두의 카드 기준금액 — 이 금액 초과 시 초과분 100% 환급</div>
+
+    <!-- 기준금액 카드  높이 약 76px -->
+    <div class="base-cards" style="margin-bottom:8px;">
+      <div class="base-card">
+        <div class="base-card-region">🏙️ 수도권 일반</div>
+        <div class="base-card-amount">62,000원</div>
+        <div class="base-card-sub">청년·어르신·2자녀 55,000원<br>저소득·3자녀↑ 45,000원</div>
+      </div>
+      <div class="base-card">
+        <div class="base-card-region">🌄 지방 일반</div>
+        <div class="base-card-amount">55,000원</div>
+        <div class="base-card-sub">청년·어르신·2자녀 48,000원<br>저소득·3자녀↑ 38,000원</div>
+      </div>
+    </div>
+
+    <!-- note  높이 약 42px -->
+    <div class="note-strip" style="background:var(--c-blue-lt);border:1px solid #BFDBFE;">
+      <span class="ni">💡</span>
+      <span style="font-size:9px;color:var(--c-blue2);line-height:1.6;">K패스 앱에서 내 유형(청년·저소득 등) 등록 확인 필수!<br>두 혜택 중 더 유리한 쪽이 매월 자동으로 적용됩니다</span>
+    </div>
+
+    <!-- 높이 합계 검증
+         padding top+bot : 14+12 = 26
+         header         : 40 + mb 8  = 48
+         라벨1          : 12 + mb 4  = 16
+         표(헤더+5행)   : 26+25×5   = 151 + mb 8 = 159
+         라벨2          : 12 + mb 4  = 16
+         기준카드       : 76 + mb 8  = 84
+         note           : 42
+         ────────────────────────────────
+         합계            = 26+48+16+159+16+84+42 = 391 ✅ (450 이내)
+    -->
+    <div class="slide-num">3 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 3 : 고유가 피해지원금  -->
+<!-- ══════════════════════════════ -->
+<div class="slide s3">
+  <div class="top-bar">
+    <span class="bar-eyebrow">RELIEF FUND</span>
+    <span class="bar-title">고유가 피해지원금</span>
+  </div>
+  <div class="content-box">
+
+    <div class="s-header" style="margin-bottom:9px;">
+      <div class="s-icon" style="background:var(--c-amber-lt);border:1.5px solid var(--c-amber);">💰</div>
+      <div>
+        <div class="s-eyebrow">2026 추경 신설 · 예산 4조 8천억</div>
+        <div class="s-title">소득 하위 70%<br>1인당 최대 60만원</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:6px;margin-bottom:9px;flex-shrink:0;">
+      <div style="background:#fff;border:1.5px solid var(--c-amber);border-radius:9px;padding:5px 10px;font-size:9px;color:var(--c-amber2);font-weight:700;flex:1;text-align:center;">👥 약 3,577만 명 대상</div>
+      <div style="background:#fff;border:1px solid var(--c-gray200);border-radius:9px;padding:5px 10px;font-size:9px;color:var(--c-gray600);flex:1;text-align:center;">🏪 지역화폐·선불카드</div>
+    </div>
+
+    <div style="font-size:7.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--c-amber);font-weight:700;opacity:.8;margin-bottom:4px;flex-shrink:0;">계층·지역별 1인당 지급액</div>
+    <div class="pay-tbl" style="margin-bottom:9px;">
+      <div class="tbl-h" style="grid-template-columns:1.5fr 1fr 1.1fr;">
+        <div class="tc tc-l" style="color:#fff;font-size:7.5px;font-weight:700;padding:5px 6px;text-transform:uppercase;">계층</div>
+        <div class="tc" style="color:#fff;font-size:7.5px;font-weight:700;padding:5px 6px;text-transform:uppercase;">수도권</div>
+        <div class="tc" style="color:#fff;font-size:7.5px;font-weight:700;padding:5px 6px;text-transform:uppercase;">비수도권</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.5fr 1fr 1.1fr;background:#fff;border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">기초수급자</div>
+        <div class="tc tc-a" style="color:var(--c-amber);font-weight:700;font-size:8.5px;">55만원</div>
+        <div class="tc tc-a" style="color:var(--c-amber);font-weight:700;font-size:8.5px;">+5만원</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.5fr 1fr 1.1fr;background:var(--c-amber-lt);border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">차상위·한부모</div>
+        <div class="tc tc-a" style="color:var(--c-amber);font-weight:700;font-size:8.5px;">45만원</div>
+        <div class="tc tc-a" style="color:var(--c-amber);font-weight:700;font-size:8.5px;">+5만원</div>
+      </div>
+      <div class="tbl-r" style="grid-template-columns:1.5fr 1fr 1.1fr;background:#fff;border-color:var(--c-gray100);">
+        <div class="tc tc-l" style="color:var(--c-gray600);font-size:8.5px;">일반 하위 70%</div>
+        <div class="tc" style="color:var(--c-amber2);font-weight:700;font-size:8.5px;">10만원</div>
+        <div class="tc" style="color:var(--c-amber2);font-weight:700;font-size:8.5px;">15~25만원</div>
+      </div>
+    </div>
+
+    <div class="apply-row" style="margin-bottom:9px;">
+      <div class="apply-card">
+        <div class="apply-icon">1️⃣</div>
+        <div class="apply-lbl">1차 (취약계층)</div>
+        <div class="apply-val">4.27~<br>5.8</div>
+      </div>
+      <div class="apply-card">
+        <div class="apply-icon">2️⃣</div>
+        <div class="apply-lbl">2차 (일반 70%)</div>
+        <div class="apply-val">5.18~<br>7.3</div>
+      </div>
+      <div class="apply-card">
+        <div class="apply-icon">📱</div>
+        <div class="apply-lbl">온라인 신청</div>
+        <div class="apply-val">카드사 앱<br>정부24</div>
+      </div>
+      <div class="apply-card">
+        <div class="apply-icon">⏰</div>
+        <div class="apply-lbl">사용 기한</div>
+        <div class="apply-val">8.31<br>까지</div>
+      </div>
+    </div>
+
+    <div class="note-strip" style="background:var(--c-amber-lt);border:1px solid #FDE68A;">
+      <span class="ni">💡</span>
+      <span style="font-size:9px;color:var(--c-amber2);line-height:1.6;">인구감소 우대지역 +20만원 / 특별지역 +25만원 지급<br>사용처: 연매출 30억↓ 소상공인 가맹점 (대형마트·백화점 제외)</span>
+    </div>
+    <div class="slide-num">4 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 4 : 영화·공연          -->
+<!-- ══════════════════════════════ -->
+<div class="slide s4">
+  <div class="top-bar">
+    <span class="bar-eyebrow">CULTURE DISCOUNT</span>
+    <span class="bar-title">영화·공연 관람 할인권</span>
+  </div>
+  <div class="content-box">
+
+    <div class="s-header" style="margin-bottom:10px;">
+      <div class="s-icon" style="background:var(--c-violet-lt);border:1.5px solid var(--c-violet);">🎭</div>
+      <div>
+        <div class="s-eyebrow">문체부 추경 4,614억 확정</div>
+        <div class="s-title">할인권 대량 배포<br>문화 소비 진작</div>
+      </div>
+    </div>
+
+    <div class="cult-card" style="margin-bottom:8px;">
+      <div class="cult-icon">🎬</div>
+      <div style="flex:1;">
+        <div class="cult-name">영화 관람 할인권</div>
+        <div class="cult-amount">6,000원 할인</div>
+        <div class="cult-sub">전국 CGV·메가박스·롯데시네마 등</div>
+      </div>
+      <div class="cult-badge">450만 장</div>
+    </div>
+
+    <div class="cult-card" style="margin-bottom:10px;">
+      <div class="cult-icon">🎭</div>
+      <div style="flex:1;">
+        <div class="cult-name">공연예술 관람 할인권</div>
+        <div class="cult-amount">1만원 할인</div>
+        <div class="cult-sub">연극·뮤지컬·클래식·국악·무용 전 장르</div>
+      </div>
+      <div class="cult-badge">40만 장</div>
+    </div>
+
+    <div class="cult-note" style="margin-bottom:8px;">
+      <strong>공연 추가 할인</strong> — 비수도권 공연 관람 시 <strong>1만 5천원 추가</strong> 중복 적용 가능<br>
+      예매처: YES24·인터파크·멜론티켓·티켓링크 등<br>
+      1인 최대 2매 / 발급 후 1주일 내 미사용 시 소멸
+    </div>
+
+    <div class="cult-note">
+      <strong>신청</strong> — 온라인 예매처에서 할인권 발급 후 예매 시 자동 적용
+    </div>
+    <div class="slide-num">5 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 5 : 숙박 반값          -->
+<!-- ══════════════════════════════ -->
+<div class="slide s5">
+  <div class="top-bar">
+    <span class="bar-eyebrow">LODGING DISCOUNT</span>
+    <span class="bar-title">숙박 반값 할인권</span>
+  </div>
+  <div class="content-box">
+
+    <div class="s-header" style="margin-bottom:10px;">
+      <div class="s-icon" style="background:var(--c-teal-lt);border:1.5px solid var(--c-teal);">🏨</div>
+      <div>
+        <div class="s-eyebrow">인구감소지역 지원 · 추경 112억</div>
+        <div class="s-title">비수도권 여행<br>숙박비 반값 환급</div>
+      </div>
+    </div>
+
+    <div class="lodge-hero" style="margin-bottom:12px;">
+      <div class="lodge-big">50</div>
+      <div class="lodge-big-info">
+        <div class="lodge-big-pct">% 환급</div>
+        <div class="lodge-big-sub">청년은 70%<br>인구감소지역 숙박</div>
+      </div>
+    </div>
+
+    <div class="lodge-rows" style="margin-bottom:10px;">
+      <div class="lodge-row">
+        <div class="lodge-row-icon">💰</div>
+        <div class="lodge-row-text">개인 <strong>최대 10만원</strong> · 2인 이상 <strong>20만원</strong> · 가족(5인) <strong>최대 50만원</strong> 환급</div>
+      </div>
+      <div class="lodge-row">
+        <div class="lodge-row-icon">📍</div>
+        <div class="lodge-row-text">비수도권 <strong>인구감소지역 30개소</strong> (강원·전남·전북·경북 등) — 기존 20개소에서 확대</div>
+      </div>
+      <div class="lodge-row">
+        <div class="lodge-row-icon">⚠️</div>
+        <div class="lodge-row-text"><strong>출발 전 사전 신청·승인 필수</strong> — 카드 결제만 인정, 영수증 보관 필수</div>
+      </div>
+      <div class="lodge-row">
+        <div class="lodge-row-icon">🗺️</div>
+        <div class="lodge-row-text"><strong>대한민국 구석구석</strong> (visitkorea.or.kr) → 반값여행 메뉴</div>
+      </div>
+    </div>
+
+    <div class="note-strip" style="background:var(--c-teal-lt);border:1px solid #99F6E4;">
+      <span class="ni">💡</span>
+      <span style="font-size:9px;color:var(--c-teal2);line-height:1.6;">추경으로 30만 장 추가 투입 — 조기 마감 지역 있으니 서둘러 신청하세요</span>
+    </div>
+    <div class="slide-num">6 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!--  SLIDE 6 : OUTRO              -->
+<!-- ══════════════════════════════ -->
+<div class="slide s6">
+  <div class="top-bar"></div>
+  <div class="content-box">
+    <div class="outro-icon">🙌</div>
+    <div class="outro-title">지금 바로<br><em>챙기세요!</em></div>
+    <div class="outro-sub">2026 추경 민생 혜택 4가지 요약</div>
+    <div class="outro-list">
+      <div class="outro-row">
+        <div class="or-icon">🚇</div>
+        <div class="or-text"><strong>K패스 교통비 환급</strong> — 환급률 최대 83% 인상 + 초과분 100% 환급</div>
+      </div>
+      <div class="outro-row">
+        <div class="or-icon">💰</div>
+        <div class="or-text"><strong>고유가 피해지원금</strong> — 소득 하위 70%, 1인당 최대 60만원</div>
+      </div>
+      <div class="outro-row">
+        <div class="or-icon">🎬</div>
+        <div class="or-text"><strong>영화·공연 할인</strong> — 영화 6천원 450만 장·공연 1만원 40만 장</div>
+      </div>
+      <div class="outro-row">
+        <div class="or-icon">🏨</div>
+        <div class="or-text"><strong>숙박 반값</strong> — 인구감소지역 50~70% 환급 (30만 장 추가)</div>
+      </div>
+    </div>
+    <div class="outro-foot">
+      출처: 기획예산처 · 문화체육관광부 · 기후에너지환경부 공식 발표<br>
+      2026년 제1회 추가경정예산 (총 26조 2천억원) 기준
+    </div>
+    <div class="slide-num">7 / 7</div>
+  </div>
+  <div class="bot-bar"></div>
+</div>
+
+
+</div><!-- /slides -->
+</div><!-- /phone-frame -->
+
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">&#8594;</button>
+</div>
+<div class="swipe-hint">← 스와이프 또는 버튼으로 이동 →</div>
+
+<script>
+  const TOTAL = 7;
+  let cur = 0;
+  const slidesEl = document.getElementById('slides');
+  const dotsEl   = document.getElementById('dots');
+  const prevBtn  = document.getElementById('prevBtn');
+  const nextBtn  = document.getElementById('nextBtn');
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+  function goTo(n) {
+    cur = Math.max(0, Math.min(n, TOTAL - 1));
+    slidesEl.style.transform = `translateX(-${cur * 100}%)`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === TOTAL - 1;
+  }
+  function navigate(dir) { goTo(cur + dir); }
+  goTo(0);
+  let sx = 0;
+  const frame = document.getElementById('phoneFrame');
+  frame.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  frame.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 38) navigate(dx < 0 ? 1 : -1);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') navigate(1);
+    if (e.key === 'ArrowLeft')  navigate(-1);
+  });
+</script>
+</body>
+</html>
